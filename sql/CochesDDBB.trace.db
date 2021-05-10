@@ -1,0 +1,12 @@
+2021-05-10 12:48:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "COCHES" no encontrada
+Table "COCHES" not found; SQL statement:
+select coches0_.id as id1_0_, coches0_.marca_id as marca_id4_0_, coches0_.matricula as matricul2_0_, coches0_.modelo as modelo3_0_ from coches coches0_ [42102-200]
+2021-05-10 12:49:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "COCHES" no encontrada
+Table "COCHES" not found; SQL statement:
+select coches0_.id as id1_0_, coches0_.marca_id as marca_id4_0_, coches0_.matricula as matricul2_0_, coches0_.modelo as modelo3_0_ from coches coches0_ [42102-200]
+2021-05-10 12:51:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "COCHES" no encontrada
+Table "COCHES" not found; SQL statement:
+select coches0_.id as id1_0_, coches0_.marca_id as marca_id4_0_, coches0_.matricula as matricul2_0_, coches0_.modelo as modelo3_0_ from coches coches0_ [42102-200]
