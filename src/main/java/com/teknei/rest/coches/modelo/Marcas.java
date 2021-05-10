@@ -5,11 +5,14 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,12 +35,10 @@ import lombok.ToString;
  * @version 1.0
  */
 @Entity
-@Table(name = "Marcas")
+@Table(name = "MARCAS")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class Marcas {
 
 	@Id
@@ -49,7 +50,8 @@ public class Marcas {
 
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy = "marca")
+	@JsonManagedReference
+	@OneToMany(mappedBy = "marca", fetch = FetchType.LAZY)
 	private final Set<Coches> coches = new HashSet<>();
 
 }

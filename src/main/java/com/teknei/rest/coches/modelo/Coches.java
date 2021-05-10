@@ -9,11 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 /**
  * Clase para representar coches. Esta clase tiene los siguientes atributos:
@@ -30,12 +30,10 @@ import lombok.ToString;
  * @version 1.0
  */
 @Entity
-@Table(name = "Coches")
+@Table(name = "COCHES")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class Coches {
 
 	@Id
@@ -50,5 +48,6 @@ public class Coches {
 
 	@ManyToOne
 	@JoinColumn(name = "marca_id")
+	@JsonBackReference
 	private Marcas marca;
 }
