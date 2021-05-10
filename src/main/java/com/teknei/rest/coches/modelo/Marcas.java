@@ -49,7 +49,7 @@ public class Marcas {
 
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@OneToMany(mappedBy = "marca") // , fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "marca")
 	private final Set<Coches> coches = new HashSet<>();
 
 }
