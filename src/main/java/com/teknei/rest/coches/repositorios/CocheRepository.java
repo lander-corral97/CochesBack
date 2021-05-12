@@ -2,6 +2,7 @@ package com.teknei.rest.coches.repositorios;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.teknei.rest.coches.modelo.Coches;
 
@@ -15,6 +16,7 @@ import com.teknei.rest.coches.modelo.Coches;
  *
  */
 @RepositoryRestResource(collectionResourceRel = "coches", path = "coches")
+@CrossOrigin(origins = "*")
 public interface CocheRepository extends CrudRepository<Coches, Long> {
 
 }
