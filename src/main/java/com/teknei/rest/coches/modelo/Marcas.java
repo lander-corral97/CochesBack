@@ -1,5 +1,6 @@
 package com.teknei.rest.coches.modelo;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,7 +40,9 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Marcas {
+public class Marcas implements Serializable {
+
+	private static final long serialVersionUID = 2649017482411834190L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,8 +53,8 @@ public class Marcas {
 
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
-	@JsonManagedReference
-	@OneToMany(mappedBy = "marca", fetch = FetchType.LAZY)
+	@JsonBackReference
+	@OneToMany(mappedBy = "marca", fetch= FetchType.LAZY)
 	private final Set<Coches> coches = new HashSet<>();
 
 }
