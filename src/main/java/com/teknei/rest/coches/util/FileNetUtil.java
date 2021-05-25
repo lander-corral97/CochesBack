@@ -31,6 +31,12 @@ import com.filenet.api.util.UserContext;
 import com.filenet.apiimpl.core.DocumentImpl;
 import com.teknei.rest.coches.modelo.Marcas;
 
+/**
+ * Clase de utilidad que se encarga de subir y borrar documentos de FileNet
+ * 
+ * @author LANDER
+ *
+ */
 public class FileNetUtil {
 
 	static final Logger LOG = Logger.getLogger("FileNetUtil.class");
