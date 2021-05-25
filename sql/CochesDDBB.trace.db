@@ -473,3 +473,11 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/LAN
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 63 more
+2021-05-24 11:04:28 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "ALTER TABLE COCHES AUTO_INCREMENT[*] = 9"; se esperaba "., ADD, SET, RENAME, DROP, ALTER"
+Syntax error in SQL statement "ALTER TABLE COCHES AUTO_INCREMENT[*] = 9"; expected "., ADD, SET, RENAME, DROP, ALTER"; SQL statement:
+Alter table Coches Auto_increment = 9 [42001-200]
+2021-05-24 11:04:35 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "ALTER TABLE COCHES SET AUTO_INCREMENT[*] = 9"; se esperaba "REFERENTIAL_INTEGRITY"
+Syntax error in SQL statement "ALTER TABLE COCHES SET AUTO_INCREMENT[*] = 9"; expected "REFERENTIAL_INTEGRITY"; SQL statement:
+Alter table Coches set Auto_increment = 9 [42001-200]
