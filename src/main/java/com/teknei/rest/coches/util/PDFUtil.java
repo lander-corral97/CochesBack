@@ -7,22 +7,33 @@ import java.util.Set;
 
 import org.springframework.web.client.RestTemplate;
 
+import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.teknei.rest.coches.modelo.Coches;
 import com.teknei.rest.coches.modelo.Marcas;
 
+/**
+ * Clase de utilidad para crear un PDF a partir de los datos en BBDD
+ * 
+ * @author LANDER
+ *
+ */
 public class PDFUtil {
 
+	private static final DeviceRgb FILA_IMPAR = new DeviceRgb(207, 213, 234);
+	private static final DeviceRgb FILA_PAR = new DeviceRgb(233, 235, 245);
+
 	private PDFUtil() {
-		
+
 	}
-	
+
 	/**
 	 * Devuelve todas las marcas. (Todas son únicas)
 	 * 
@@ -52,20 +63,27 @@ public class PDFUtil {
 
 		Document doc = new Document(pdfDoc);
 
-		Paragraph para = new Paragraph(marca).setFontColor(new DeviceRgb(0, 0, 255)).setFontSize(20f);
+		Paragraph para = new Paragraph(marca).setFontColor(new DeviceRgb(68, 114, 196)).setFontSize(20f).setBold();
 
 		doc.add(para);
 
 		float[] anchuraColumnas = { 225F, 225F };
 		Table table = new Table(anchuraColumnas);
 
-		table.addCell(new Cell().setBold().add("Modelo"));
-		table.addCell(new Cell().setBold().add("Matrícula"));
+		table.addCell(new Cell().setBold().setBackgroundColor(new DeviceRgb(68, 114, 196)).setFontColor(Color.WHITE)
+				.add("Modelo").setBorder(Border.NO_BORDER));
+		table.addCell(new Cell().setBold().setBackgroundColor(new DeviceRgb(68, 114, 196)).setFontColor(Color.WHITE)
+				.add("Matrícula").setBorder(Border.NO_BORDER));
+
+		int colorCounter = 1;
 
 		for (Coches coche : coches) {
 			if (coche.getMarca().getNombre().equals(marca)) {
-				table.addCell(new Cell().add(coche.getModelo()));
-				table.addCell(new Cell().add(coche.getMatricula()));
+				table.addCell(new Cell().add(coche.getModelo())
+						.setBackgroundColor(colorCounter % 2 == 1 ? FILA_IMPAR : FILA_PAR).setBorder(Border.NO_BORDER));
+				table.addCell(new Cell().add(coche.getMatricula())
+						.setBackgroundColor(colorCounter % 2 == 1 ? FILA_IMPAR : FILA_PAR).setBorder(Border.NO_BORDER));
+				colorCounter++;
 			}
 		}
 
@@ -85,5 +103,5 @@ public class PDFUtil {
 
 		return Arrays.asList(coches);
 	}
-	
+
 }
