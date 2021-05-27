@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.teknei.rest.coches.modelo.Coches;
 import com.teknei.rest.coches.modelo.Marcas;
+import com.teknei.rest.coches.modelo.Usuario;
 import com.teknei.rest.coches.repositorios.CocheRepository;
 import com.teknei.rest.coches.repositorios.MarcaRepository;
+import com.teknei.rest.coches.repositorios.UsuarioRepository;
 import com.teknei.rest.coches.util.FileNetUtil;
 import com.teknei.rest.coches.util.PDFUtil;
 
@@ -36,6 +39,12 @@ public class CocheMarcaController {
 	
 	@Autowired
 	private MarcaRepository marcaRepo;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepo;
+	
+	@Autowired
+	private BCryptPasswordEncoder passEncoder;
 	
 	/**
 	 * Saca la lista de Coches, con Marca
@@ -131,5 +140,12 @@ public class CocheMarcaController {
 		FileNetUtil.getObjectStore(marcas);
 	}
 	
+	@PostMapping("/prueba")
+	public void pruebaInsert(@RequestBody Usuario usuario) {
+		String pwd = usuario.getPassword();
+		String encryptPwd = passEncoder.encode(pwd);
+		usuario.setPassword(encryptPwd);
+		usuarioRepo.save(usuario);
+	}
 	
 }
