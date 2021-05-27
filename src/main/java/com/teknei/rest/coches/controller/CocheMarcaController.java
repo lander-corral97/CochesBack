@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teknei.rest.coches.modelo.Coches;
@@ -46,6 +46,28 @@ public class CocheMarcaController {
 	public Iterable<Coches> getCoches() {
 		return cocheRepo.findAll();
 	}
+
+	/**
+	 * Coge el coche cuyo id es el parámetro
+	 * 
+	 * @param id Id de coche
+	 * @return Coche cuyo id es el parámetro
+	 */
+	@GetMapping("/coches/{id}")
+	public Coches getById(@PathVariable Long id) {
+		return cocheRepo.findById(id).isPresent()?cocheRepo.findById(id).get():null;
+	}
+
+	/**
+	 * Saca una lista de Coches cuyo id de Marca sea la variable introducide
+	 * 
+	 * @param id Id de la marca
+	 * @return Lista de Coches cuyo id de marca sea id
+	 */
+	@GetMapping("/coches/marca/{idMarca}")
+	public Iterable<Coches> getCochesPorMarca(@PathVariable Long idMarca) {
+		return cocheRepo.findByMarcaId(idMarca);
+	}
 	
 	/**
 	 * Saca la lista de Marcas
@@ -57,16 +79,6 @@ public class CocheMarcaController {
 		return marcaRepo.findAll();
 	}
 	
-	/**
-	 * Saca una lista de Coches cuyo id de Marca sea la variable introducide
-	 * 
-	 * @param id Id de la marca
-	 * @return Lista de Coches cuyo id de marca sea id
-	 */
-	@GetMapping("/coches/{id}")
-	public Iterable<Coches> getCochesPorMarca(@PathVariable Long id) {
-		return cocheRepo.findByMarcaId(id);
-	}
 	
 	/**
 	 * Introduce un coche a la BBDD
@@ -75,9 +87,29 @@ public class CocheMarcaController {
 	 * @return Coche introducido
 	 */
 	@PostMapping("/coches")
-	@ResponseStatus(code = HttpStatus.CREATED)
 	public Coches post(@RequestBody Coches coche) {
 		return cocheRepo.save(coche);
+	}
+
+	/**
+	 * Modifica un coche de la BBDD
+	 * 
+	 * @param coche Coche a modificar
+	 * @return Coche modificado
+	 */
+	@PutMapping("/coches")
+	public Coches put(@RequestBody Coches coche) {
+		return cocheRepo.save(coche);
+	}
+	
+	/**
+	 * Borra un coche en base a un id
+	 * 
+	 * @param id Id del coche a borrar
+	 */
+	@DeleteMapping("/coches/{id}")
+	public void delete(@PathVariable Long id) {
+		cocheRepo.deleteById(id);
 	}
 	
 	/**
@@ -98,4 +130,6 @@ public class CocheMarcaController {
 		}
 		FileNetUtil.getObjectStore(marcas);
 	}
+	
+	
 }
