@@ -1,38 +1,41 @@
 package com.teknei.rest.coches.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.teknei.rest.coches.filter.JWTAuthorizationFilter;
+
+/**
+ * Configuración de Spring security
+ * 
+ * @author LANDER
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private UserDetailsService userDetailsService;
-
+	/**
+	 * Configuración de la seguridad de la web. Habilita el endpoint de la consola
+	 * de H2.
+	 */
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(encodePWD());
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/h2/**");
 	}
 
+	/**
+	 * Configuración de la seguridad. Añade un filtro para que todos los endpoints
+	 * necesiten un token. (excepto el de login)
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
 		http.headers().frameOptions().disable();
-		http.authorizeRequests().antMatchers("/h2", "/prueba").permitAll().and().authorizeRequests()
-				.antMatchers("/coches**", "/marcas**", "/subir-filenet").authenticated().anyRequest().permitAll().and()
-				.formLogin().permitAll();
-	}
-
-	@Bean
-	public BCryptPasswordEncoder encodePWD() {
-		return new BCryptPasswordEncoder();
+		http.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated();
 	}
 }
