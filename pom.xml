@@ -96,7 +96,7 @@
 			<artifactId>hyph</artifactId>
 			<version>7.0.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.ibm.filenet</groupId>
 			<artifactId>Jace</artifactId>
@@ -112,7 +112,7 @@
 			<artifactId>p8cel10n</artifactId>
 			<version>5.2.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -122,6 +122,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
