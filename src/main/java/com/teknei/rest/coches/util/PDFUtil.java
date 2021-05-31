@@ -1,11 +1,8 @@
 package com.teknei.rest.coches.util;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.springframework.web.client.RestTemplate;
 
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceRgb;
@@ -29,7 +26,7 @@ public class PDFUtil {
 
 	private static final DeviceRgb FILA_IMPAR = new DeviceRgb(207, 213, 234);
 	private static final DeviceRgb FILA_PAR = new DeviceRgb(233, 235, 245);
-
+	
 	private PDFUtil() {
 
 	}
@@ -90,18 +87,6 @@ public class PDFUtil {
 		doc.add(table);
 
 		doc.close();
-	}
-
-	/**
-	 * Devuelve la lista de coches rellena.
-	 * 
-	 * @return Lista de Coches rellenada.
-	 */
-	public static List<Coches> sacarListaCoches() {
-		RestTemplate restTemplate = new RestTemplate();
-		Coches[] coches = restTemplate.getForObject("http://localhost:8080/coches", Coches[].class);
-
-		return Arrays.asList(coches);
 	}
 
 }
