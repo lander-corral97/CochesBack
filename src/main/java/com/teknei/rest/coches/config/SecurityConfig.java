@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.cors();
 		http.headers().frameOptions().disable();
 		http.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 		http.authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated();
